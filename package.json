@@ -1,0 +1,19 @@
+{
+  "name": "piinfo",
+  "version": "1.0.0",
+  "description": "PI Information App",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "PI",
+    "information"
+  ],
+  "author": "Pi Swap",
+  "license": "ISC"
+}
