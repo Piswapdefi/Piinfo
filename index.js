@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const zt = axios.create({
-  baseURL: 'https://piswap.onrender.com/',
+  baseURL: 'https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg',
 });
 
 zt.defaults.headers.common['Authorization'] = '';
@@ -32,7 +32,7 @@ async function pR(t, e = {}, r = 'get', n) {
 // Sử dụng hàm pR
 (async () => {
   try {
-    const result = await pR('https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg', { key: 'value' }, 'post', { state: true, token: 'your_token' });
+    const result = await pR('/api/endpoint', { key: 'value' }, 'post', { state: true, token: 'your_token' });
     console.log(result);
   } catch (error) {
     console.error(error);
