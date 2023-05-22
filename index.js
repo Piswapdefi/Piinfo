@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const allowedDomains = ['https://piswap.onrender.com/', 'http://127.0.0.1:5503/', 'www.piswap.io'];
+const allowedDomains = ['piswap.onrender.com', 'http://127.0.0.1:5503/', 'www.piswap.io'];
 
 // Middleware kiểm tra tên miền được phép
 function checkAllowedDomain(req, res, next) {
@@ -32,6 +32,6 @@ app.get('/', (req, res) => {
 });
 
 // Khởi động máy chủ
-app.listen(443, () => {
+app.listen(3000, () => {
   console.log('Server is running on port 443');
 });
