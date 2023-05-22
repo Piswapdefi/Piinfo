@@ -5,7 +5,7 @@ const app = express();
 
 app.get('/', async (req, res) => {
   try {
-    const response = await axios.get('postgres://piswap:0O1WlVc97wJNPWcwva08W3vvapLrtCzV@dpg-chl4blm4dadfmsh0ujk0-a/piswap');
+    const response = await axios.get('https://piswap.onrender.com/');
     const data = response.data;
     // Xử lý dữ liệu tại đây
     res.send(data);
