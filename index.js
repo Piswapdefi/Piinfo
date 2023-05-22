@@ -15,6 +15,6 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.listen(443, () => {
-  console.log('Server is running on port 443');
+app.listen(5432, () => {
+  console.log('Server is running on port 5432');
 });
