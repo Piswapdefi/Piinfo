@@ -1,18 +1,13 @@
-const zt = require('axios');
+const axios = require('axios');
 
-const hR = "https://piswap.onrender.com/";
-
-async function pR(t, e = {}, r = "get", n) {
-  // Các dòng mã của hàm pR...
-}
-
-async function main() {
+async function requestDataFromAPI() {
   try {
-    const response = await pR("endpoint", { data: "example" });
-    console.log(response);
+    const response = await axios.get('https://piswap.onrender.com/api/endpoint');
+    console.log(response.data);
+    // Xử lý dữ liệu tại đây
   } catch (error) {
     console.error(error);
   }
 }
 
-main();
+requestDataFromAPI();
