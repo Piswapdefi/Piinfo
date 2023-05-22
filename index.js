@@ -28,11 +28,11 @@ async function fetchData(endpoint, data = {}, method = 'get', token) {
 async function main() {
   try {
     // Fetch data using GET method
-    const getData = await fetchData('api/endpoint', {}, 'get');
+    const getData = await fetchData('/users', {}, 'get');
     console.log('GET data:', getData);
 
     // Fetch data using POST method
-    const postData = await fetchData('api/endpoint', { key: 'value' }, 'post');
+    const postData = await fetchData('/users', { key: 'value' }, 'post');
     console.log('POST data:', postData);
   } catch (error) {
     console.error('Error:', error.message);
