@@ -1,30 +1,37 @@
 const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
 const app = express();
 
-// Tạo proxy server để truy cập API Render từ máy khách
-app.use(
-  '/',
-  createProxyMiddleware({
-    target: 'https://piswap.onrender.com',
-    changeOrigin: true,
-  })
-);
+const allowedDomains = ['https://piswap.onrender.com/', 'http://127.0.0.1:5503/', 'www.piswap.io'];
 
-// Truy cập API Render từ máy chủ
-app.get('/api', async (req, res) => {
-  try {
-    const response = await axios.get('https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg');
-    const data = response.data;
-    // Xử lý dữ liệu tại đây
-    res.send(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error');
+// Middleware kiểm tra tên miền được phép
+function checkAllowedDomain(req, res, next) {
+  const origin = req.headers.origin;
+  if (allowedDomains.includes(origin)) {
+    // Cho phép yêu cầu từ tên miền được xác thực
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    // Không cho phép yêu cầu từ tên miền khác
+    return res.status(403).send('Forbidden');
   }
+  next();
+}
+
+// Sử dụng middleware cho tất cả các yêu cầu
+app.use(checkAllowedDomain);
+
+// Định nghĩa endpoint "/api/data"
+app.get('/api/data', (req, res) => {
+  // Xử lý yêu cầu GET đến "/api/data"
+  // ...
+  res.send('Data response');
 });
 
+// Định nghĩa trang chủ
+app.get('/', (req, res) => {
+  res.send('Welcome to the homepage');
+});
+
+// Khởi động máy chủ
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
