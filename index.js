@@ -28,7 +28,7 @@ async function fetchData(endpoint, data = {}, method = 'get', token) {
 async function main() {
   try {
     // Fetch data using GET method
-    const getData = await fetchData('dep-chlgkv3hp8uej755fp60', {}, 'get');
+    const getData = await fetchData('api/endpoint', {}, 'get');
     console.log('GET data:', getData);
 
     // Fetch data using POST method
