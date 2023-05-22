@@ -5,7 +5,7 @@ const app = express();
 
 app.get('/', async (req, res) => {
   try {
-    const response = await axios.get('https://piswap.onrender.com/');
+    const response = await axios.get('https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg');
     const data = response.data;
     // Xử lý dữ liệu tại đây
     res.send(data);
