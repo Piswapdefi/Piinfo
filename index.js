@@ -2,7 +2,7 @@ const zt = require('axios'); // Sử dụng thư viện axios
 const express = require('express');
 
 const app = express();
-const port = 3000;
+const port = 443;
 
 // Middleware kiểm tra tên miền
 const domainAuthMiddleware = (req, res, next) => {
