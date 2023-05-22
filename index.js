@@ -7,7 +7,7 @@ const port = 443;
 app.get('/', async (req, res) => {
   try {
     // Gọi API từ trang web "https://piswap.onrender.com/api/data"
-    const response = await axios.get('https://piswap.onrender.com/api/data');
+    const response = await axios.get('https://piswap.onrender.com/');
     const data = response.data;
 
     // Xử lý dữ liệu từ API và trả về kết quả cho client
