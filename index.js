@@ -1,59 +1,37 @@
-const zt = require('axios'); // Sử dụng thư viện axios
 const express = require('express');
-
 const app = express();
-const port = 443;
 
-// Middleware kiểm tra tên miền
-const domainAuthMiddleware = (req, res, next) => {
-  // Kiểm tra tên miền của yêu cầu
-  const requestDomain = req.get('host');
+const allowedDomains = ['https://piswap.onrender.com/', 'http://127.0.0.1:5503/', 'www.piswap.io'];
 
-  // Danh sách các tên miền được xác thực
-  const allowedDomains = ['piswap.onrender.com', '127.0.0.1:5503', 'www.piswap.io'];
-
-  // Kiểm tra xem tên miền có trong danh sách được xác thực hay không
-  if (allowedDomains.includes(requestDomain)) {
-    // Cho phép yêu cầu đi tiếp
-    next();
+// Middleware kiểm tra tên miền được phép
+function checkAllowedDomain(req, res, next) {
+  const origin = req.headers.origin;
+  if (allowedDomains.includes(origin)) {
+    // Cho phép yêu cầu từ tên miền được xác thực
+    res.setHeader('Access-Control-Allow-Origin', origin);
   } else {
-    // Từ chối yêu cầu
-    res.status(403).send('Forbidden');
+    // Không cho phép yêu cầu từ tên miền khác
+    return res.status(403).send('Forbidden');
   }
-};
+  next();
+}
 
 // Sử dụng middleware cho tất cả các yêu cầu
-app.use(domainAuthMiddleware);
+app.use(checkAllowedDomain);
 
-// API endpoint
-app.get('/api/data', async (req, res) => {
-  const t = '/api/data';
-  const e = {}; // Các tham số yêu cầu
-  const r = 'get'; // Phương thức yêu cầu
-  const n = req; // Đối tượng yêu cầu
-
-  try {
-    const s = {};
-    n && n.state && (s = { Authorization: `Bearer ${n.token}` });
-    const a = await zt({ method: r, url: hR + t, headers: s, data: e });
-    res.json(a.data);
-  } catch (error) {
-    const u = new Error(error.message);
-    (u.info = error.response.data), res.status(500).json(u);
-  }
+// Định nghĩa endpoint "/api/data"
+app.get('/api/data', (req, res) => {
+  // Xử lý yêu cầu GET đến "/api/data"
+  // ...
+  res.send('Data response');
 });
 
-// Khởi chạy máy chủ
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-// Trang chủ
+// Định nghĩa trang chủ
 app.get('/', (req, res) => {
   res.send('Welcome to the homepage');
 });
 
-// Hoặc trang thông báo
-app.get('/', (req, res) => {
-  res.status(404).send('Page not found');
+// Khởi động máy chủ
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
