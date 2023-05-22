@@ -1,37 +1,40 @@
-const express = require('express');
-const app = express();
+const axios = require('axios');
 
-const allowedDomains = ['https://piswap.onrender.com/', 'http://127.0.0.1:5503/', 'www.piswap.io'];
+const zt = axios.create({
+  baseURL: 'https://piswap.onrender.com/',
+});
 
-// Middleware kiểm tra tên miền được phép
-function checkAllowedDomain(req, res, next) {
-  const origin = req.headers.origin;
-  if (allowedDomains.includes(origin)) {
-    // Cho phép yêu cầu từ tên miền được xác thực
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    // Không cho phép yêu cầu từ tên miền khác
-    return res.status(403).send('Forbidden');
-  }
-  next();
+zt.defaults.headers.common['Authorization'] = '';
+
+async function pR(t, e = {}, r = 'get', n) {
+  return new Promise(async (resolve, reject) => {
+    let headers = {};
+    if (n && n.state) {
+      headers['Authorization'] = `Bearer ${n.token}`;
+    }
+
+    try {
+      const response = await zt({
+        method: r,
+        url: t,
+        headers: headers,
+        data: e,
+      });
+      resolve(response.data);
+    } catch (error) {
+      const customError = new Error(error.message);
+      customError.info = error.response.data;
+      reject(customError);
+    }
+  });
 }
 
-// Sử dụng middleware cho tất cả các yêu cầu
-app.use(checkAllowedDomain);
-
-// Định nghĩa endpoint "/api/data"
-app.get('/api/data', (req, res) => {
-  // Xử lý yêu cầu GET đến "/api/data"
-  // ...
-  res.send('Data response');
-});
-
-// Định nghĩa trang chủ
-app.get('/', (req, res) => {
-  res.send('Welcome to the homepage');
-});
-
-// Khởi động máy chủ
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+// Sử dụng hàm pR
+(async () => {
+  try {
+    const result = await pR('https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg', { key: 'value' }, 'post', { state: true, token: 'your_token' });
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+})();
