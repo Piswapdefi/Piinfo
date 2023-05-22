@@ -28,11 +28,11 @@ async function fetchData(endpoint, data = {}, method = 'get', token) {
 async function main() {
   try {
     // Fetch data using GET method
-    const getData = await fetchData('api/endpoint', {}, 'get');
+    const getData = await fetchData('dep-chlgkv3hp8uej755fp60', {}, 'get');
     console.log('GET data:', getData);
 
     // Fetch data using POST method
-    const postData = await fetchData('api/dep-chlgkv3hp8uej755fp60', { key: '0QR7G7oywtg' }, 'https://piswap.onrender.com/');
+    const postData = await fetchData('api/endpoint', { key: 'value' }, 'post');
     console.log('POST data:', postData);
   } catch (error) {
     console.error('Error:', error.message);
