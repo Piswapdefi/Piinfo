@@ -1,23 +1,15 @@
-const express = require('express');
 const axios = require('axios');
 
-const app = express();
-const port = 443;
+const url = 'https://piswap.onrender.com/';
 
-app.get('/', async (req, res) => {
+async function fetchData() {
   try {
-    // Gọi API từ trang web "https://piswap.onrender.com/api/data"
-    const response = await axios.get('https://piswap.onrender.com/');
+    const response = await axios.get(url);
     const data = response.data;
-
-    // Xử lý dữ liệu từ API và trả về kết quả cho client
-    res.json(data);
+    console.log(data);
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).send('Internal Server Error');
   }
-});
+}
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+fetchData();
