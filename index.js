@@ -1,15 +1,20 @@
+const express = require('express');
 const axios = require('axios');
 
-const url = 'https://piswap.onrender.com/';
+const app = express();
 
-async function fetchData() {
+app.get('/', async (req, res) => {
   try {
-    const response = await axios.get(url);
+    const response = await axios.get('https://piswap.onrender.com/api/endpoint');
     const data = response.data;
-    console.log(data);
+    // Xử lý dữ liệu tại đây
+    res.send(data);
   } catch (error) {
-    console.error('Error:', error);
+    console.error(error);
+    res.status(500).send('Error');
   }
-}
+});
 
-fetchData();
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
