@@ -14,14 +14,6 @@ app.use(
   })
 );
 
-app.use(
-  '/',
-  createProxyMiddleware({
-    target: 'https://piswap.onrender.com',
-    changeOrigin: true,
-  })
-);
-
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
