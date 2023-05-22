@@ -1,9 +1,4 @@
-// index.js
 const zt = require('axios');
-
-zt.Axios = cc;
-zt.CanceledError = nl;
-// Các dòng mã khác...
 
 const hR = "https://piswap.onrender.com/";
 
