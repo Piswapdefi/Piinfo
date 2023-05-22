@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const zt = axios.create({
-  baseURL: 'https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg',
+  baseURL: 'https://piswap.onrender.com/',
 });
 
 zt.defaults.headers.common['Authorization'] = '';
