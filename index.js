@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const allowedDomains = ['piswap.onrender.com', 'http://127.0.0.1:5503/', 'www.piswap.io'];
+const allowedDomains = ['http://127.0.0.1:5503/', 'www.piswap.io'];
 
 // Middleware kiểm tra tên miền được phép
 function checkAllowedDomain(req, res, next) {
