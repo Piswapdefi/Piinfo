@@ -47,3 +47,13 @@ app.get('/api/data', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+// Trang chủ
+app.get('/', (req, res) => {
+  res.send('Welcome to the homepage');
+});
+
+// Hoặc trang thông báo
+app.get('/', (req, res) => {
+  res.status(404).send('Page not found');
+});
