@@ -1,20 +1,43 @@
-const express = require('express');
 const axios = require('axios');
 
-const app = express();
+const BASE_URL = 'https://piswap.onrender.com/';
 
-app.get('/', async (req, res) => {
+async function fetchData(endpoint, data = {}, method = 'get', token) {
   try {
-    const response = await axios.get('https://api.render.com/deploy/srv-chl50067avj2179k2kbg?key=0QR7G7oywtg');
-    const data = response.data;
-    // Xử lý dữ liệu tại đây
-    res.send(data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error');
-  }
-});
+    let headers = {};
+    if (token && token.state) {
+      headers = { Authorization: `Bearer ${token.token}` };
+    }
 
-app.listen(443, () => {
-  console.log('Server is running on port 443');
-});
+    const response = await axios({
+      method: method,
+      url: BASE_URL + endpoint,
+      headers: headers,
+      data: data,
+    });
+
+    return response.data;
+  } catch (error) {
+    const customError = new Error(error.message);
+    customError.info = error.response.data;
+    throw customError;
+  }
+}
+
+// Example usage
+async function main() {
+  try {
+    // Fetch data using GET method
+    const getData = await fetchData('api/endpoint', {}, 'get');
+    console.log('GET data:', getData);
+
+    // Fetch data using POST method
+    const postData = await fetchData('api/dep-chlgkv3hp8uej755fp60', { key: '0QR7G7oywtg' }, 'https://piswap.onrender.com/');
+    console.log('POST data:', postData);
+  } catch (error) {
+    console.error('Error:', error.message);
+    console.error('Error info:', error.info);
+  }
+}
+
+main();
